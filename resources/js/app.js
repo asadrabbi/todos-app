@@ -31,53 +31,5 @@ Vue.component(
  */
 
 const app = new Vue({
-    el: "#app",
-    data: {
-        form: {
-            name: ""
-        },
-        todos: [],
-        totalCount: 0,
-        completedCount: 0,
-        activeCount: 0
-    },
-    methods: {
-        getTodoData() {
-            axios.get("get-todo").then(res => {
-                this.todos = res.data;
-                this.totalCount = res.data.totalCount;
-                this.completedCount = res.data.completedCount;
-                this.activeCount = res.data.activeCount;
-            });
-        },
-        saveTodo() {
-            axios.post("todo", this.form).then(res => {
-                this.form = {};
-                this.getTodoData();
-            });
-        },
-        doneTodo(id) {
-            axios.get(`update-todo/${id}`).then(res => {
-                this.getTodoData();
-            });
-        },
-        clearTodo(id) {
-            axios.get(`delete/${id}`).then(res => {
-                this.getTodoData();
-            });
-        },
-        toggleTodo(id) {
-            axios.get(`toggletodo`).then(res => {
-                this.getTodoData();
-            });
-        },
-        massClearTodo(id) {
-            axios.get(`massdelete`).then(res => {
-                this.getTodoData();
-            });
-        }
-    },
-    mounted() {
-        this.getTodoData();
-    }
+    el: "#app"
 });
