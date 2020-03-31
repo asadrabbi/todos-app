@@ -1,0 +1,167 @@
+
+body {
+	font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	line-height: 1.4em;
+	background: #f5f5f5;
+	color: #4d4d4d;
+	min-width: 230px;
+	max-width: 550px;
+	margin: 0 auto !important;
+	-webkit-font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+	font-weight: 300;
+}
+body{font-family: 'Josefin Sans', sans-serif !important; }
+.todoapp {
+	background: #fff;
+	margin: 130px 0 40px 0;
+	position: relative;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+}
+.new-todo {
+	padding: 16px 16px 16px 60px;
+	border: none;
+	background: rgba(0, 0, 0, 0.003);
+	box-shadow: inset 0 -2px 1px rgba(0,0,0,0.03);
+	width: 100%;
+}
+.main {
+	position: relative;
+	z-index: 2;
+	border-top: 1px solid #e6e6e6;
+}
+.todo-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.todo-list li{border-top:0;}
+.nav-tabs{padding:15px;}
+.nav.nav-tabs li{padding-left:10px;}
+.nav.nav-tabs li a {
+	color: inherit;
+	margin: 3px;
+	padding: 3px 7px;
+	text-decoration: none;
+	border: 1px solid transparent;
+	border-radius: 3px;
+}
+.nav.nav-tabs li a.active {
+	border-color: rgba(175, 47, 47, 0.2);
+}
+.nav.nav-tabs li a.active, .nav.nav-tabs li a:hover {
+	border-color: rgba(175, 47, 47, 0.1);
+}
+.todoapp h1 {
+	position: absolute;
+	top: -120px;
+	width: 100%;
+	font-size: 100px;
+	font-weight: 100;
+	text-align: center;
+	color: rgba(175, 47, 47, 0.15);
+	-webkit-text-rendering: optimizeLegibility;
+	-moz-text-rendering: optimizeLegibility;
+	text-rendering: optimizeLegibility;
+}
+/*.nav.nav-tabs::before {
+	content: '';
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 50px;
+	overflow: hidden;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgba(0, 0, 0, 0.2);
+}*/
+.checkbox-teal [type="checkbox"]:checked+label:before {
+  border-color: transparent #009688 #009688 transparent;
+}
+.form-check-input[type="checkbox"]:checked + label::before, label.btn input[type="checkbox"]:checked + label::before {
+	top: -4px;
+	left: -5px;
+	width: 12px;
+	height: 1.375rem;
+	border-top: 2px solid transparent;
+	border-left: 2px solid transparent;
+	border-right: 2px solid #4285f4;
+	border-bottom: 2px solid #4285f4;
+	-webkit-transform: rotate(40deg);
+	-ms-transform: rotate(40deg);
+	transform: rotate(40deg);
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	-webkit-transform-origin: 100% 100%;
+	-ms-transform-origin: 100% 100%;
+	transform-origin: 100% 100%;
+}
+.form-check-input[type="checkbox"] + label::before, .form-check-input[type="checkbox"]:not(.filled-in) + label::after, label.btn input[type="checkbox"] + label::before, label.btn input[type="checkbox"]:not(.filled-in) + label::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 18px;
+	height: 18px;
+	z-index: 0;
+	border: 2px solid #8a8a8a;
+	-webkit-border-radius: 1px;
+	border-radius: 1px;
+	margin-top: 3px;
+	-webkit-transition: .2s;
+	-o-transition: .2s;
+	transition: .2s;
+}
+.form-check input[type="checkbox"] {
+  visibility: hidden;
+}
+[type="checkbox"]:checked, [type="checkbox"]:not(:checked) {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+.form-check-input[type="checkbox"] + label, label.btn input[type="checkbox"] + label {
+	position: relative;
+	padding-left: 35px;
+	cursor: pointer;
+	display: inline-block;
+	height: 1.5625rem;
+	line-height: 1.5625rem;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.form-check {
+	padding-left: 0 !important;
+}
+.todo-list li .destroy {
+	background:none;
+	border:0;
+	display: none;
+	position: absolute;
+	top: 0;
+	right: 10px;
+	bottom: 0;
+	margin: auto 0;
+	font-size: 15px;
+	font-weight:700;
+	color: #cc9a9a;
+	margin-bottom: 11px;
+	transition: color 0.2s ease-out;
+}
+.todo-list li:hover .destroy {
+	display: block;
+}
+.todo-list li .destroy:hover {
+	color: #af5b5e;
+}
+.toggleall{position:relative;}
+.toggleall span {
+    position: absolute;
+    left: 20px;
+    top: 16px;
+    font-size: 18px;
+	cursor: pointer;
+	z-index: 9999;
+}
