@@ -27,7 +27,10 @@
                     class="list-group-item"
                     v-for="(todo, index) in todos.todos"
                 >
-                    <div class="form-check checkbox-teal mb-2">
+                    <div
+                        class="form-check checkbox-teal mb-2"
+                        @dblclick="renameTodo(todo)"
+                    >
                         <input
                             type="checkbox"
                             :checked="todo.status == 1 ? 'checked' : ''"
@@ -36,7 +39,19 @@
                             :id="todo.id"
                         />
 
-                        <label class="form-check-label" :for="todo.id">
+                        <input
+                            class="rename new-todo"
+                            type="text"
+                            v-model="form.name"
+                            v-if="form.id == todo.id"
+                            @keyup.enter="updateRename"
+                            @blur="updateRename"
+                        />
+                        <label
+                            class="form-check-label"
+                            :for="todo.id"
+                            v-if="todo.id != form.id"
+                        >
                             <span v-if="todo.status == 0">
                                 {{ todo.name }}
                             </span>
@@ -45,7 +60,11 @@
                             </span>
                         </label>
                     </div>
-                    <button class="destroy" @click.prevent="clearTodo(todo.id)">
+                    <button
+                        v-if="todo.id != form.id"
+                        class="destroy"
+                        @click.prevent="clearTodo(todo.id)"
+                    >
                         X
                     </button>
                 </li>
@@ -55,7 +74,10 @@
                     class="list-group-item"
                     v-for="(todo, index) in todos.active"
                 >
-                    <div class="form-check checkbox-teal mb-2">
+                    <div
+                        class="form-check checkbox-teal mb-2"
+                        @dblclick="renameTodo(todo)"
+                    >
                         <input
                             type="checkbox"
                             :checked="todo.status == 1 ? 'checked' : ''"
@@ -64,7 +86,19 @@
                             :id="todo.id"
                         />
 
-                        <label class="form-check-label" :for="todo.id">
+                        <input
+                            class="rename new-todo"
+                            type="text"
+                            v-model="form.name"
+                            v-if="form.id == todo.id"
+                            @keyup.enter="updateRename"
+                            @blur="updateRename"
+                        />
+                        <label
+                            class="form-check-label"
+                            :for="todo.id"
+                            v-if="todo.id != form.id"
+                        >
                             <span v-if="todo.status == 0">
                                 {{ todo.name }}
                             </span>
@@ -73,7 +107,11 @@
                             </span>
                         </label>
                     </div>
-                    <button class="destroy" @click.prevent="clearTodo(todo.id)">
+                    <button
+                        v-if="todo.id != form.id"
+                        class="destroy"
+                        @click.prevent="clearTodo(todo.id)"
+                    >
                         X
                     </button>
                 </li>
@@ -83,7 +121,10 @@
                     class="list-group-item"
                     v-for="(todo, index) in todos.completed"
                 >
-                    <div class="form-check checkbox-teal mb-2">
+                    <div
+                        class="form-check checkbox-teal mb-2"
+                        @dblclick="renameTodo(todo)"
+                    >
                         <input
                             type="checkbox"
                             :checked="todo.status == 1 ? 'checked' : ''"
@@ -92,7 +133,19 @@
                             :id="todo.id"
                         />
 
-                        <label class="form-check-label" :for="todo.id">
+                        <input
+                            class="rename new-todo"
+                            type="text"
+                            v-model="form.name"
+                            v-if="form.id == todo.id"
+                            @keyup.enter="updateRename"
+                            @blur="updateRename"
+                        />
+                        <label
+                            class="form-check-label"
+                            :for="todo.id"
+                            v-if="todo.id != form.id"
+                        >
                             <span v-if="todo.status == 0">
                                 {{ todo.name }}
                             </span>
@@ -101,7 +154,11 @@
                             </span>
                         </label>
                     </div>
-                    <button class="destroy" @click.prevent="clearTodo(todo.id)">
+                    <button
+                        v-if="todo.id != form.id"
+                        class="destroy"
+                        @click.prevent="clearTodo(todo.id)"
+                    >
                         X
                     </button>
                 </li>
@@ -130,7 +187,9 @@
 export default {
     data() {
         return {
+            visiable: false,
             form: {
+                id: "",
                 name: ""
             },
             todos: [],
@@ -174,10 +233,20 @@ export default {
             axios.get(`massdelete`).then(res => {
                 this.getTodoData();
             });
+        },
+        renameTodo(todo) {
+            this.form = todo;
+        },
+        updateRename() {
+            axios.post("rename", this.form).then(res => {
+                this.getTodoData();
+                this.form = {};
+            });
         }
     },
     mounted() {
         this.getTodoData();
-    }
+    },
+    created() {}
 };
 </script>

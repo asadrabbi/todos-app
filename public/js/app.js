@@ -2036,10 +2036,69 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      visiable: false,
       form: {
+        id: "",
         name: ""
       },
       todos: [],
@@ -2095,11 +2154,24 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("massdelete").then(function (res) {
         _this6.getTodoData();
       });
+    },
+    renameTodo: function renameTodo(todo) {
+      this.form = todo;
+    },
+    updateRename: function updateRename() {
+      var _this7 = this;
+
+      axios.post("rename", this.form).then(function (res) {
+        _this7.getTodoData();
+
+        _this7.form = {};
+      });
     }
   },
   mounted: function mounted() {
     this.getTodoData();
-  }
+  },
+  created: function created() {}
 });
 
 /***/ }),
@@ -37549,49 +37621,109 @@ var render = function() {
         { staticClass: "todo-list tab-pane active", attrs: { id: "all" } },
         _vm._l(_vm.todos.todos, function(todo, index) {
           return _c("li", { staticClass: "list-group-item" }, [
-            _c("div", { staticClass: "form-check checkbox-teal mb-2" }, [
-              _c("input", {
-                staticClass: "form-check-input",
-                attrs: { type: "checkbox", id: todo.id },
-                domProps: { checked: todo.status == 1 ? "checked" : "" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.doneTodo(todo.id)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "label",
-                { staticClass: "form-check-label", attrs: { for: todo.id } },
-                [
-                  todo.status == 0
-                    ? _c("span", [
-                        _vm._v(
-                          "\n                            " +
-                            _vm._s(todo.name) +
-                            "\n                        "
-                        )
-                      ])
-                    : _c("span", [_c("del", [_vm._v(" " + _vm._s(todo.name))])])
-                ]
-              )
-            ]),
-            _vm._v(" "),
             _c(
-              "button",
+              "div",
               {
-                staticClass: "destroy",
+                staticClass: "form-check checkbox-teal mb-2",
                 on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.clearTodo(todo.id)
+                  dblclick: function($event) {
+                    return _vm.renameTodo(todo)
                   }
                 }
               },
-              [_vm._v("\n                    X\n                ")]
-            )
+              [
+                _c("input", {
+                  staticClass: "form-check-input",
+                  attrs: { type: "checkbox", id: todo.id },
+                  domProps: { checked: todo.status == 1 ? "checked" : "" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.doneTodo(todo.id)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.form.id == todo.id
+                  ? _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.name,
+                          expression: "form.name"
+                        }
+                      ],
+                      staticClass: "rename new-todo",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.form.name },
+                      on: {
+                        keyup: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.updateRename($event)
+                        },
+                        blur: _vm.updateRename,
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "name", $event.target.value)
+                        }
+                      }
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                todo.id != _vm.form.id
+                  ? _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: todo.id }
+                      },
+                      [
+                        todo.status == 0
+                          ? _c("span", [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(todo.name) +
+                                  "\n                        "
+                              )
+                            ])
+                          : _c("span", [
+                              _c("del", [_vm._v(" " + _vm._s(todo.name))])
+                            ])
+                      ]
+                    )
+                  : _vm._e()
+              ]
+            ),
+            _vm._v(" "),
+            todo.id != _vm.form.id
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "destroy",
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.clearTodo(todo.id)
+                      }
+                    }
+                  },
+                  [_vm._v("\n                    X\n                ")]
+                )
+              : _vm._e()
           ])
         }),
         0
@@ -37602,49 +37734,109 @@ var render = function() {
         { staticClass: "todo-list tab-pane", attrs: { id: "active" } },
         _vm._l(_vm.todos.active, function(todo, index) {
           return _c("li", { staticClass: "list-group-item" }, [
-            _c("div", { staticClass: "form-check checkbox-teal mb-2" }, [
-              _c("input", {
-                staticClass: "form-check-input",
-                attrs: { type: "checkbox", id: todo.id },
-                domProps: { checked: todo.status == 1 ? "checked" : "" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.doneTodo(todo.id)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "label",
-                { staticClass: "form-check-label", attrs: { for: todo.id } },
-                [
-                  todo.status == 0
-                    ? _c("span", [
-                        _vm._v(
-                          "\n                            " +
-                            _vm._s(todo.name) +
-                            "\n                        "
-                        )
-                      ])
-                    : _c("span", [_c("del", [_vm._v(" " + _vm._s(todo.name))])])
-                ]
-              )
-            ]),
-            _vm._v(" "),
             _c(
-              "button",
+              "div",
               {
-                staticClass: "destroy",
+                staticClass: "form-check checkbox-teal mb-2",
                 on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.clearTodo(todo.id)
+                  dblclick: function($event) {
+                    return _vm.renameTodo(todo)
                   }
                 }
               },
-              [_vm._v("\n                    X\n                ")]
-            )
+              [
+                _c("input", {
+                  staticClass: "form-check-input",
+                  attrs: { type: "checkbox", id: todo.id },
+                  domProps: { checked: todo.status == 1 ? "checked" : "" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.doneTodo(todo.id)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.form.id == todo.id
+                  ? _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.name,
+                          expression: "form.name"
+                        }
+                      ],
+                      staticClass: "rename new-todo",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.form.name },
+                      on: {
+                        keyup: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.updateRename($event)
+                        },
+                        blur: _vm.updateRename,
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "name", $event.target.value)
+                        }
+                      }
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                todo.id != _vm.form.id
+                  ? _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: todo.id }
+                      },
+                      [
+                        todo.status == 0
+                          ? _c("span", [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(todo.name) +
+                                  "\n                        "
+                              )
+                            ])
+                          : _c("span", [
+                              _c("del", [_vm._v(" " + _vm._s(todo.name))])
+                            ])
+                      ]
+                    )
+                  : _vm._e()
+              ]
+            ),
+            _vm._v(" "),
+            todo.id != _vm.form.id
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "destroy",
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.clearTodo(todo.id)
+                      }
+                    }
+                  },
+                  [_vm._v("\n                    X\n                ")]
+                )
+              : _vm._e()
           ])
         }),
         0
@@ -37655,49 +37847,109 @@ var render = function() {
         { staticClass: "todo-list tab-pane", attrs: { id: "completed" } },
         _vm._l(_vm.todos.completed, function(todo, index) {
           return _c("li", { staticClass: "list-group-item" }, [
-            _c("div", { staticClass: "form-check checkbox-teal mb-2" }, [
-              _c("input", {
-                staticClass: "form-check-input",
-                attrs: { type: "checkbox", id: todo.id },
-                domProps: { checked: todo.status == 1 ? "checked" : "" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.doneTodo(todo.id)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "label",
-                { staticClass: "form-check-label", attrs: { for: todo.id } },
-                [
-                  todo.status == 0
-                    ? _c("span", [
-                        _vm._v(
-                          "\n                            " +
-                            _vm._s(todo.name) +
-                            "\n                        "
-                        )
-                      ])
-                    : _c("span", [_c("del", [_vm._v(" " + _vm._s(todo.name))])])
-                ]
-              )
-            ]),
-            _vm._v(" "),
             _c(
-              "button",
+              "div",
               {
-                staticClass: "destroy",
+                staticClass: "form-check checkbox-teal mb-2",
                 on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.clearTodo(todo.id)
+                  dblclick: function($event) {
+                    return _vm.renameTodo(todo)
                   }
                 }
               },
-              [_vm._v("\n                    X\n                ")]
-            )
+              [
+                _c("input", {
+                  staticClass: "form-check-input",
+                  attrs: { type: "checkbox", id: todo.id },
+                  domProps: { checked: todo.status == 1 ? "checked" : "" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.doneTodo(todo.id)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.form.id == todo.id
+                  ? _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.name,
+                          expression: "form.name"
+                        }
+                      ],
+                      staticClass: "rename new-todo",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.form.name },
+                      on: {
+                        keyup: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.updateRename($event)
+                        },
+                        blur: _vm.updateRename,
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "name", $event.target.value)
+                        }
+                      }
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                todo.id != _vm.form.id
+                  ? _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: todo.id }
+                      },
+                      [
+                        todo.status == 0
+                          ? _c("span", [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(todo.name) +
+                                  "\n                        "
+                              )
+                            ])
+                          : _c("span", [
+                              _c("del", [_vm._v(" " + _vm._s(todo.name))])
+                            ])
+                      ]
+                    )
+                  : _vm._e()
+              ]
+            ),
+            _vm._v(" "),
+            todo.id != _vm.form.id
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "destroy",
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.clearTodo(todo.id)
+                      }
+                    }
+                  },
+                  [_vm._v("\n                    X\n                ")]
+                )
+              : _vm._e()
           ])
         }),
         0
@@ -50023,14 +50275,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*!******************************************************!*\
   !*** ./resources/js/components/ExampleComponent.vue ***!
   \******************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ExampleComponent.vue?vue&type=template&id=299e239e& */ "./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&");
 /* harmony import */ var _ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ExampleComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -50060,7 +50313,7 @@ component.options.__file = "resources/js/components/ExampleComponent.vue"
 /*!*******************************************************************************!*\
   !*** ./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js& ***!
   \*******************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

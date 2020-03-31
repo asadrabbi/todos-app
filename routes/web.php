@@ -23,6 +23,7 @@ Route::get('update-todo/{id}','TodoController@updateTodo');
 Route::get('toggletodo','TodoController@toggletodo');
 Route::get('delete/{id}','TodoController@deleteTodo');
 Route::get('massdelete','TodoController@massdeleteTodo');
+Route::post('rename','TodoController@renameTodo');
 
 Route::get('test',function(){
     return view('master');

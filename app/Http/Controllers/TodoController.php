@@ -52,6 +52,13 @@ class TodoController extends Controller
             $completed->delete();
         }
     }
+    public function renameTodo(Request $request)
+    {
+       
+        $todo = Todo::find($request->id);
+        $todo->name = $request->name;
+        $todo->save();
+    }
      public function getTodo()
      {
         $todos = Todo::all();
