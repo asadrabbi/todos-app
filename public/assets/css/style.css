@@ -69,16 +69,7 @@ body{font-family: 'Josefin Sans', sans-serif !important; }
 	-moz-text-rendering: optimizeLegibility;
 	text-rendering: optimizeLegibility;
 }
-/*.nav.nav-tabs::before {
-	content: '';
-	position: absolute;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	height: 50px;
-	overflow: hidden;
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgba(0, 0, 0, 0.2);
-}*/
+
 .checkbox-teal [type="checkbox"]:checked+label:before {
   border-color: transparent #009688 #009688 transparent;
 }
